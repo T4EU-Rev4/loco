@@ -1,0 +1,27 @@
+
+Generic:
+
+T4EU/<target country>/<wagonNr or country-code of the wagon>/<payload>
+
+Codes for the wagons are mapped to an adresses for the bus. 
+International phone prefix is sometime more than 2 digits so we should use 
+the 2 letter code for the wagon selection as well.
+
+payload:	The port expander PCF8575 supports 16 bits, e.g 2 Bytes
+		We should send 2 bytes in payload, for example:
+		c=<Byte 1>;v=<Byte 2>
+		Key-value-format, seperated by a semicolon seems to be sufficient.
+		JSON is also an option.
+
+353 = IE Ireland
+370 = LT Lithuania
+385 = HR Croatia
+39  = IT Italy
+45  = DK Denmark	MP3-Player
+49  = DE Germany
+
+
+Example:		Payload:	c=xxx;v=yyy
+
+Topic:	T4EU/DE/DK	Payload:	c=3;v=5
+	T4EU/DE/DE	Payload:	c=5;v=99
