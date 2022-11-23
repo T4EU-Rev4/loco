@@ -20,3 +20,17 @@ see: https://forum.arduino.cc/t/int-aus-string-extrahieren/143685   thanks to ju
 
 Next step: Clean up code, move to VSCode, implement I2C for wagon control
 
+
+## ESP32_Test_02
+Just a Blink version with LED on Pin GPIO23 to see, is the toolchain in VSCode is propertly installed.
+
+## ESP32_Test_03
+Test a single PCF8575 device with ESP32
+
+## ESP32_Test_04
+Introduce a new small library I2CDevice. It can replace the library for the PCF8575 on the ESP for the use
+in the T4EU project. Only output mode is supported. In can word on a per bit base (as the old library can)
+as well as on a per byte mode as required for more sophisticated animations based on microcontrollers in a wagon.
+
+
+

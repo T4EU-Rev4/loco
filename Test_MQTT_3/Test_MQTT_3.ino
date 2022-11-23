@@ -23,7 +23,7 @@ void initTopics() {
 }
 
 // WiFi
-const char *ssid = "";      // Enter your WiFi name
+const char *ssid = ""; // Enter your WiFi name
 const char *password = "";  // Enter WiFi password
 
 // MQTT Broker
