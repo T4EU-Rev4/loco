@@ -31,6 +31,7 @@ void I2CDevice::begin( uint8_t sda, uint8_t scl ) {
 void I2CDevice::begin(){ 
     if (I2CDev_Counter == 0) {
         _wire->begin(); 
+        //Serial.println("I2CDevice::begin()");
     }
     I2CDev_Counter++;    
 }
@@ -60,6 +61,7 @@ uint8_t I2CDevice::get( uint8_t index ) {
 
  void I2CDevice::write( ){
     uint8_t x;
+    //Serial.println( _addr );
     _wire->beginTransmission( _addr );  // transmit to device _addr
     for (uint8_t i=0; i<I2CDev_NrOfPorts; i++ ) {
         if (_invert) {

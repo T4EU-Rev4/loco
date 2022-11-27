@@ -32,5 +32,11 @@ Introduce a new small library I2CDevice. It can replace the library for the PCF8
 in the T4EU project. Only output mode is supported. In can word on a per bit base (as the old library can)
 as well as on a per byte mode as required for more sophisticated animations based on microcontrollers in a wagon.
 
+## Loco_01
+This is a first version of a firmware on the ESP32, to fullfill the follwoing requirement:
+
+- accept some command from MQTT-Server
+- start and stop animations on different wagons of the train
+
 
 
