@@ -1,5 +1,6 @@
 # loco
-Modules located at the loco to communicate with the showcase controller an the wagons
+Modules located at the loco to communicate with the showcase controller an the wagons.
+See Logo_01 for the actual implementation of the ESP inside the loco.
 
 
 ## Test_MQTT_1
@@ -35,8 +36,22 @@ as well as on a per byte mode as required for more sophisticated animations base
 ## Loco_01
 This is a first version of a firmware on the ESP32, to fullfill the follwoing requirement:
 
-- accept some command from MQTT-Server
-- start and stop animations on different wagons of the train
+- accept some commands from a MQTT-Server
+- start and stop animations on different wagons of the train by MQTT-commands
+
+The devices PCF8575 are just port expanders with no processing capabilities. So any animations must run on the ESP controlling these devices.
+To keep the code readable, we build a kind of a frame work, where the different animations can be put in own classes derived from the basic animation class TAnimationBasic. Due to the PCF8575, there are two bytes available named _portA and _portB. These two bytes are transfered to the desired I2C device, so set the bits in this two byte accordingly.
+
+There a three virtual methods to implement:
+**beforeStart()**
+This method is called once, befor an animation starts. Do all the prerequisits and initalizations  here. 
+
+
+
+
+
+
+
 
 
 
