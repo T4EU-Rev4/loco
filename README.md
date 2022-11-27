@@ -42,15 +42,15 @@ This is a first version of a firmware on the ESP32, to fullfill the follwoing re
 The devices PCF8575 are just port expanders with no processing capabilities. So any animations must run on the ESP controlling these devices.
 To keep the code readable, we build a kind of a frame work, where the different animations can be put in own classes derived from the basic animation class TAnimationBasic. Due to the PCF8575, there are two bytes available named _portA and _portB. These two bytes are transfered to the desired I2C device, so set the bits in this two byte accordingly.
 
-There a three virtual methods to implement: \\ 
-**beforeStart()** \\
-This method is called once, befor an animation starts. Do all the prerequisits and initalizations here. \\ \\ 
+There a three virtual methods to implement:  
+**beforeStart()**  
+This method is called once, befor an animation starts. Do all the prerequisits and initalizations here.   
 
-**afterStop()** \\
-This is the place to clean up the animation, eg. stop motors, switch off any Led and so an. It ist called once when animation stops.
+**afterStop()**   
+This is the place to clean up the animation, eg. stop motors, switch off any Led and so an. It ist called once when animation stops.   
 
-**animate()** \\
-This method will do the whole job of animation. It is called every 100ms. 
+**animate()**   
+This method will do the whole job of animation. It is called every 100ms.    
 
 
 
