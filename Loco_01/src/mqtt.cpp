@@ -4,8 +4,8 @@
 #include <PubSubClient.h>
 
 // WiFi
-const char *ssid          = ""; // Enter your WiFi name
-const char *password      = "";  // Enter WiFi password
+const char *ssid          = "IBB"; // Enter your WiFi name
+const char *password      = "pc6sWPuV2YyFO5kSJKpW";  // Enter WiFi password
 
 // MQTT Broker
 // const char *mqtt_broker   = "broker.emqx.io";
@@ -20,7 +20,7 @@ const char *password      = "";  // Enter WiFi password
 
 const char *mqtt_broker   = "michael.tuxcity.de";
 const char *mqtt_username = "Paul";
-const char *mqtt_password = "";
+const char *mqtt_password = "test1234";
 const int   mqtt_port     = 1883;
 
 char TopicName[NR_OF_TOPICS][15] = { 

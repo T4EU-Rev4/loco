@@ -75,9 +75,18 @@ void setup() {
     animation[ NR_OF_WAGONS ] = NULL;
   }  
 
-  animation[ cDK ] = new TAnimationKnightRider();           //create an animation object
+  animation[ cDK ] = new TAnimationKnightRider();     //create an animation object
   animation[ cDK ]->setWagon( &allWagons[ cDK ] );    //assign a wagon to this animatio
   animation[ cDK ]->start(0);
+
+
+  animation[ cIT ] = new TAnimationBlink();           //create an animation object
+  animation[ cIT ]->setWagon( &allWagons[ cIT ] );    //assign a wagon to this animatio
+  animation[ cIT ]->start(0);
+
+  animation[ cLT ] = new TAnimationUpDown();           //create an animation object
+  animation[ cLT ]->setWagon( &allWagons[ cLT ] );    //assign a wagon to this animatio
+  animation[ cLT ]->start(0);
 
   Serial.println("Setup done");
 }

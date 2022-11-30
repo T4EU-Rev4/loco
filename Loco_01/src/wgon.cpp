@@ -18,7 +18,7 @@ TWagon allWagons[ NR_OF_WAGONS ] = { {0x20, convertCountryCode( countries[cDK] )
 
 
 /**
- * @brief This method converts a giveb 2-letter country-code into a
+ * @brief This method converts a given 2-letter country-code into a
  *        decimal representation by the follwowing formula:
  *        a = ASCII-value of the first letter
  *        b = ASCII-value of the second letter
