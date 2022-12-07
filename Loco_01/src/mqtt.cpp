@@ -8,20 +8,16 @@ const char *ssid          = "IBB"; // Enter your WiFi name
 const char *password      = "pc6sWPuV2YyFO5kSJKpW";  // Enter WiFi password
 
 // MQTT Broker
-// const char *mqtt_broker   = "broker.emqx.io";
-// const char *mqtt_username = "emqx";
-// const char *mqtt_password = "public";
-// const int   mqtt_port     = 1883;
+const char *mqtt_broker   = "broker.emqx.io";
+const char *mqtt_username = "emqx";
+const char *mqtt_password = "public";
+const int   mqtt_port     = 1883;
 
 // const char *mqtt_broker   = "192.168.1.21";
 // const char *mqtt_username = "train4euIT";
 // const char *mqtt_password = "italy";
 // const int   mqtt_port     = 1883;
 
-const char *mqtt_broker   = "michael.tuxcity.de";
-const char *mqtt_username = "Paul";
-const char *mqtt_password = "test1234";
-const int   mqtt_port     = 1883;
 
 char TopicName[NR_OF_TOPICS][15] = { 
     "T4EU/DE",
