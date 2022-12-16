@@ -73,7 +73,17 @@ void TAnimationBasic::stop()  {
 
 void TAnimationBasic::command( uint8_t cmd, uint8_t val ) {
   _running = false;  
-  _portA = cmd;
-  _portB = val;
+  uint16_t x = (1 << cmd);  //pit pattern, we want to set
+
+  if (val > 0) {
+    //sett bit
+    _portB |= (x >> 8);   //Port B 0 high byte PB0 - PB7 = x.8 - x.15
+    _portB |= (x);        //Port A 0 low byte  PA0 - PA7 = x.0 - x.7
+  }  else {
+    //clear bit
+    _portB &= ~(x >> 8);   //Port B 0 high byte PB0 - PB7 = x.8 - x.15
+    _portB &= ~(x);        //Port A 0 low byte  PA0 - PA7 = x.0 - x.7
+
+  }
   TAnimationBasic::animate();
 }
