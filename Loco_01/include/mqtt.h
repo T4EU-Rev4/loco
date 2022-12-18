@@ -25,6 +25,10 @@ void mqtt_register_Callback(  mqtt_callback_t cbf );
 void mqtt_enterState( MQTT_State mqs ) ;
 void mqtt_Received( uint16_t adr, uint8_t cmd, uint8_t val );
 
+uint8_t mqtt_getWiFiStatus();
+void    mqtt_showWiFiStatus();
+void    mqtt_checkWiFiStatus(); 
+
 struct TTopic {
 
   TTopic( char *t, uint16_t a ) : topic( t ), wagon( a ) {}

@@ -119,7 +119,7 @@ void json_mqtt_callback(char *topic, byte *payload, unsigned int length) {
     //Attribute sender is actuelly not needed 
     handshakeRequest = true;
     handshakeCount++;
-    Serial.print("Handshake request  ");
+    //Serial.print("Handshake request  ");
   }
 
 

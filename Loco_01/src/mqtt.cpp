@@ -3,6 +3,8 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include <json.h>
+#include <log.h>
+
 
 // WiFi
 const char *ssid          = "IBB"; // Enter your WiFi name
@@ -49,6 +51,10 @@ TTopic topics[ NR_OF_TOPICS ] = { { TopicName[ 0 ],        0  },
                                   { TopicName[ cLT +1 ],   convertCountryCode( countries[cLT] )  }, 
                                   { TopicName[ cIR +1 ],   convertCountryCode( countries[cIR] )  }
                                 };
+
+#define WiFiRestartTimeout  20
+uint8_t timeout = WiFiRestartTimeout;         //try to reboot after an unexpected disconnect
+
 
 mqtt_callback_t	CB_ON_RECEIVE = NULL;			//- Variablen für die Callback-Funktionen
 
@@ -99,16 +105,28 @@ void mqtt_Received( uint16_t adr, uint8_t cmd, uint8_t val ) {
 //  Serial.println("-----------------------");
 // }
 
+uint8_t mqtt_getWiFiStatus(){
+  return  (uint8_t)WiFi.status();
+}
+
 void initWiFi() {
+  uint8_t timeout = WiFiRestartTimeout;  //Timeout in seconds
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
   json_setMAC( WiFi.macAddress() );    //override the preset with the actual value
   Serial.print("Connecting to WIFI network");
   while (WiFi.status() != WL_CONNECTED) {
-    Serial.print('.');
-    delay(1000);
+    Serial.print('.');        //If there is not successfull connection to WiFi network
+    mqtt_showWiFiStatus();    //after typ. 20 sec, the ESP will be restarted
+    delay(1000);              
+    timeout--;
+    if (timeout == 0) {
+      ESP.restart();
+    }
   }
   Serial.println(WiFi.localIP());
+  log_print( WiFi.localIP().toString()  );
+  mqtt_showWiFiStatus();
 }
 
 void mqtt_setup() {
@@ -119,14 +137,11 @@ void mqtt_setup() {
   client.setServer(mqtt_broker, mqtt_port);    //connecting to a mqtt broker
   client.setCallback( json_mqtt_callback );
   while (!client.connected()) {
-     
-
      Serial.printf("The client %s connects to the public mqtt broker\n", MAC.c_str() );
      if (client.connect( MAC.c_str(), mqtt_username, mqtt_password)) {
         Serial.println("Connected to MQTT broker");
         if (mqttState == MQTT_None) {
           mqtt_enterState( MQTT_Connecting );
-
         }
      } else {
         Serial.print("failed with state ");
@@ -135,16 +150,6 @@ void mqtt_setup() {
         delay(2000);
      }
   }
-  // publish and subscribe
-
-
-  // this is the code for my version. It will be removed after the other one is working...
-  // client.publish( topics[0].topic, "Hi EMQX I'm ESP32 ^^");
-  // Serial.println( topics[0].topic );
-  // for( int i=0; i < NR_OF_TOPICS; i++ ) {
-  //   client.subscribe( topics[i].topic ); 
-  //   Serial.println( topics[i].topic );
-  // }
  }
 
 void mqtt_loop() {
@@ -161,8 +166,10 @@ void mqtt_loop() {
                       break;
 
     case MQTT_Run:    if (handshakeRequest) { //stable 
-                        Serial.print("-  Handshake response  " );
-                        Serial.println( handshakeCount );
+                        //Serial.print("-  Handshake response  " );
+                        //Serial.println( handshakeCount );
+                        String s = "Handshake: " + String(handshakeCount);
+                        log_line( 2, s.c_str() );
                         json_createServerMsg( mt_handshake );
                         client.publish( TopicSend.c_str(), toPublish  );
                         handshakeRequest = false;
@@ -177,7 +184,8 @@ void mqtt_register_Callback(  mqtt_callback_t cbf ) {
 }
 
 /**
- * @brief Do andy steps neccesary to enter the appropiate state
+ * @brief Do any steps neccesary to enter the appropiate state
+ *        BeforeEnter()
  * 
  * @param mqs target state
  */
@@ -209,4 +217,42 @@ void mqtt_enterState( MQTT_State mqs ) {
                       break;
   }
   mqttState = mqs;
+}
+
+
+void mqtt_showWiFiStatus() {                 //called every 10 seconds
+  String s;
+  switch( WiFi.status() ) {
+    case WL_NO_SHIELD:       s = "WL_NO_SHIELD"; break;
+    case WL_IDLE_STATUS:     s = "WL_IDLE_STATUS"; break;
+    case WL_NO_SSID_AVAIL:   s = "WL_NO_SSID_AVAIL"; break;
+    case WL_SCAN_COMPLETED:  s = "WL_SCAN_COMPLETED"; break;
+    case WL_CONNECTED:       s = "WL_CONNECTED"; break;
+    case WL_CONNECT_FAILED:  s = "WL_CONNECT_FAILED"; break;
+    case WL_CONNECTION_LOST: s = "WL_CONNECTION_LOST"; break;
+    case WL_DISCONNECTED:    s = "WL_DISCONNECTED"; break;
+  default: s = "Unknown WiFi state";
+  }
+  log_line( 7, s.c_str() );
+}
+
+
+void mqtt_checkWiFiStatus() {
+  switch( WiFi.status() ) {
+    case WL_NO_SHIELD:        break;
+    case WL_IDLE_STATUS:      mqtt_enterState( MQTT_None );  //recognize a potential connection loss
+                              break;
+    case WL_NO_SSID_AVAIL:    break;
+    case WL_SCAN_COMPLETED:   break;
+    case WL_CONNECTED:        break;
+    case WL_CONNECT_FAILED:   break;
+    case WL_CONNECTION_LOST:  break;
+    case WL_DISCONNECTED:     mqtt_enterState( MQTT_None );   //recognize a potential connection loss
+                              break;
+  default: ;
+  }
+  if (mqttState == MQTT_None) {
+    Serial.println("Reboot...");
+    ESP.restart();
+  }
 }

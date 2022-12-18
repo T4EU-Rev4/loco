@@ -6,6 +6,7 @@
 #include <animationUpDown.h>
 #include <animationBlink.h>
 #include <animationKnightRider.h>
+#include <log.h>
 
 bool    bLed = false;
 
@@ -26,6 +27,11 @@ void timerEvent_100ms() {                 //called every 100ms (round about)
 void timerEvent_1s() {                  //called every second
   digitalWrite( LED, bLed );
   bLed = !bLed;
+}
+
+void timerEvent_10s() {                 //called every 10 seconds
+  mqtt_showWiFiStatus();
+  mqtt_checkWiFiStatus();
 }
 
 /**
@@ -63,12 +69,15 @@ void setup() {
   digitalWrite( LED, bLed );
   Serial.begin(115200);
 
+  log_setup();
+
   wagon_setup();
   mqtt_setup();
   mqtt_register_Callback( &mqtt_MessageReceived );
 
   timer_register_Callback( tCB_100MS, &timerEvent_100ms );    //set the callback methods
   timer_register_Callback( tCB_1SEK, &timerEvent_1s );
+  timer_register_Callback( tCB_10SEK, &timerEvent_10s );
   timer_Setup();            //start a software based timer to avoid delay()
     
   for( uint8_t i=0; i < NR_OF_WAGONS; i++) {          //init array as empty
