@@ -64,6 +64,21 @@ void mqtt_MessageReceived( uint16_t adr, uint8_t cmd, uint8_t val ) {
 }
 
 
+void assignAnimations() {
+  animation[ BE ] = new TAnimationKnightRider();     //create an animation object
+  animation[ BE ]->setWagon( &allWagons[ BE ] );     //assign a wagon to this animatio
+  animation[ BE ]->start(0);
+
+
+  animation[ SE ] = new TAnimationBlink();           //create an animation object
+  animation[ SE ]->setWagon( &allWagons[ SE ] );    //assign a wagon to this animatio
+  animation[ SE ]->start(0);
+
+  animation[ RO ] = new TAnimationUpDown();           //create an animation object
+  animation[ RO ]->setWagon( &allWagons[ RO ] );      //assign a wagon to this animatio
+  animation[ RO ]->start(0);
+}
+
 void setup() {
   pinMode(LED, OUTPUT);
   digitalWrite( LED, bLed );
@@ -83,19 +98,7 @@ void setup() {
   for( uint8_t i=0; i < NR_OF_WAGONS; i++) {          //init array as empty
     animation[ NR_OF_WAGONS ] = NULL;
   }  
-
-  animation[ cDK ] = new TAnimationKnightRider();     //create an animation object
-  animation[ cDK ]->setWagon( &allWagons[ cDK ] );    //assign a wagon to this animatio
-  animation[ cDK ]->start(0);
-
-
-  animation[ cIT ] = new TAnimationBlink();           //create an animation object
-  animation[ cIT ]->setWagon( &allWagons[ cIT ] );    //assign a wagon to this animatio
-  animation[ cIT ]->start(0);
-
-  animation[ cLT ] = new TAnimationUpDown();           //create an animation object
-  animation[ cLT ]->setWagon( &allWagons[ cLT ] );    //assign a wagon to this animatio
-  animation[ cLT ]->start(0);
+  assignAnimations();
 
   Serial.println("Setup done");
 }
