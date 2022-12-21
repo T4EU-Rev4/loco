@@ -27,30 +27,6 @@ const int   mqtt_port     = 1883;
 // const int   mqtt_port     = 1883;
 
 
-// char TopicName[NR_OF_TOPICS][15] = { 
-//     "T4EU/DE",
-//     "T4EU/DE/DK",
-//     "T4EU/DE/DE",
-//     "T4EU/DE/IT",
-//     "T4EU/DE/HR",
-//     "T4EU/DE/LT",
-//     "T4EU/DE/IR"
-// };
-
-/**
- * @brief Initialize the array of structure.
- *        First parameter is the topic for the dedicated wagon
- *        Second parameter is a decimal representation of the 2-letter country code
- *        used to adress the wagon. You can find the I2CDevice with this code.
- */
-// TTopic topics[ NR_OF_TOPICS ] = { { TopicName[ 0 ],        0  }, 
-//                                   { TopicName[ cDK +1 ],   convertCountryCode( countries[cDK] )  }, 
-//                                   { TopicName[ cDE +1 ],   convertCountryCode( countries[cDE] )  }, 
-//                                   { TopicName[ cIT +1 ],   convertCountryCode( countries[cIT] )  }, 
-//                                   { TopicName[ cHR +1 ],   convertCountryCode( countries[cHR] )  }, 
-//                                   { TopicName[ cLT +1 ],   convertCountryCode( countries[cLT] )  }, 
-//                                   { TopicName[ cIR +1 ],   convertCountryCode( countries[cIR] )  }
-//                                 };
 
 #define WiFiRestartTimeout  20
 uint8_t timeout = WiFiRestartTimeout;         //try to reboot after an unexpected disconnect
@@ -90,20 +66,6 @@ void mqtt_Received( uint16_t adr, uint8_t cmd, uint8_t val ) {
   //Serial.println("rec:");
   if (CB_ON_RECEIVE != NULL) { CB_ON_RECEIVE( adr, cmd, val ); } 
 }
-
-
-// void mqtt_callback(char *topic, byte *payload, unsigned int length) {
-//   for (int i=0; i < NR_OF_TOPICS; i++ ) {
-//     uint8_t cmd, val;
-//     if ( strcmp( topic, topics[i].topic )==0 ){
-//       cmd = getIntFromString( (char*)payload, 1 );   
-//       val = getIntFromString( (char*)payload, 2 );
-//       mqtt_Received( topics[i].wagon, cmd, val );
-//       break;
-//     }
-//   }
-//  Serial.println("-----------------------");
-// }
 
 uint8_t mqtt_getWiFiStatus(){
   return  (uint8_t)WiFi.status();

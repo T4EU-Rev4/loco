@@ -6,6 +6,7 @@
 #include <animationUpDown.h>
 #include <animationBlink.h>
 #include <animationKnightRider.h>
+#include <animationDirect.h>
 #include <log.h>
 
 bool    bLed = false;
@@ -49,14 +50,7 @@ void mqtt_MessageReceived( uint16_t adr, uint8_t cmd, uint8_t val ) {
   for (uint8_t i=0; i < NR_OF_WAGONS; i++) {
     if ( animation[i] != NULL ) {     //there is an animation...
       if (animation[i]->getWagon()->wagon == adr ) {   //and the adress is correct
-        switch (cmd)  {
-          case 1:  animation[i]->start( val );
-                   break;
-          case 3:  animation[i]->stop();
-                   break;  
-          default: animation[i]->command( cmd, val );
-                   break;
-        }
+        animation[i]->command( cmd, val );
         break;
       }
     }
@@ -67,16 +61,13 @@ void mqtt_MessageReceived( uint16_t adr, uint8_t cmd, uint8_t val ) {
 void assignAnimations() {
   animation[ BE ] = new TAnimationKnightRider();     //create an animation object
   animation[ BE ]->setWagon( &allWagons[ BE ] );     //assign a wagon to this animatio
-  animation[ BE ]->start(0);
 
-
-  animation[ SE ] = new TAnimationBlink();           //create an animation object
+  // animation[ SE ] = new TAnimationBlink();           //create an animation object
+  animation[ SE ] = new TAnimationDirect();         //create an animation object
   animation[ SE ]->setWagon( &allWagons[ SE ] );    //assign a wagon to this animatio
-  animation[ SE ]->start(0);
-
+  
   animation[ RO ] = new TAnimationUpDown();           //create an animation object
   animation[ RO ]->setWagon( &allWagons[ RO ] );      //assign a wagon to this animatio
-  animation[ RO ]->start(0);
 }
 
 void setup() {
@@ -105,9 +96,7 @@ void setup() {
 
 void loop() {  
 
-
   timer_Trigger();   //keep the timer running
-
  
   mqtt_loop();
 }
