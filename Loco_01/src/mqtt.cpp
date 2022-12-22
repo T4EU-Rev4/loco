@@ -21,7 +21,7 @@ const char *mqtt_username = "";
 const char *mqtt_password = "";
 const int   mqtt_port     = 1883;
 
-// const char *mqtt_broker   = "192.168.1.21";
+// const char *mqtt_broker   = "192.168.1.21";    //my local Mosquitto
 // const char *mqtt_username = "train4euIT";
 // const char *mqtt_password = "italy";
 // const int   mqtt_port     = 1883;

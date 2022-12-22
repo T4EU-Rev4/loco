@@ -7,7 +7,12 @@
 #include <animationBlink.h>
 #include <animationKnightRider.h>
 #include <animationDirect.h>
+#include <animationLoco.h>
 #include <log.h>
+
+#define Mot1En1 18
+#define Mot1En2 19  
+#define Mot1PWM 5
 
 bool    bLed = false;
 
@@ -68,7 +73,12 @@ void assignAnimations() {
   
   animation[ RO ] = new TAnimationUpDown();           //create an animation object
   animation[ RO ]->setWagon( &allWagons[ RO ] );      //assign a wagon to this animatio
+
+  animation[ DE ] = new TAnimationLoco( Mot1En1, Mot1En2, Mot1PWM);           //create an animation object
+  animation[ DE ]->setWagon( &allWagons[ DE ] );      //assign a wagon to this animatio
+
 }
+
 
 void setup() {
   pinMode(LED, OUTPUT);

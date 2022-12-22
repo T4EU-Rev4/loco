@@ -17,7 +17,7 @@ class TAnimationBasic
     uint8_t _portB;             //available in derived classes
     uint8_t _value;             //parameter that comes with the start() 
 
-    virtual void animate();             //this is the method where the real animation take place
+    virtual void animate();     //this is the method where the real animation take place
 
   public:
     TAnimationBasic();

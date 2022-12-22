@@ -1,14 +1,14 @@
 #ifndef animationBlink_h
 #define animationBlink_h
 
-#include <animationBasic.h>
+#include <animationESP.h>
 
 /**
  * @brief This animations will toggle between the lower and the higher nibble of port a and port b.
  * 
  */
 
-class TAnimationBlink : public TAnimationBasic
+class TAnimationBlink : public TAnimationESP
 {
   private:
 

@@ -1,7 +1,7 @@
 #ifndef animationUpDown_h
 #define animationUpDown_h
 
-#include <animationBasic.h>
+#include <animationESP.h>
 
 /**
  * @brief This animation counts port A from 0 to 255 upwards,
@@ -9,7 +9,7 @@
  * 
  */
 
-class TAnimationUpDown : public TAnimationBasic
+class TAnimationUpDown : public TAnimationESP
 {
   private:
 
