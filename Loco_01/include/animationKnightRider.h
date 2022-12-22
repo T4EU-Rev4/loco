@@ -1,7 +1,7 @@
 #ifndef animationKnightRider_h
 #define animationKnightRider_h
 
-#include <animationBasic.h>
+#include <animationESP.h>
 
 /**
  * @brief This animation creates one bit running trough all the 16 LEDs and all the way back.
@@ -10,7 +10,7 @@
  */
 
 
-class TAnimationKnightRider : public TAnimationBasic
+class TAnimationKnightRider : public TAnimationESP
 {
   private:
     uint16_t data;

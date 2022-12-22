@@ -6,6 +6,13 @@
 #include <animationUpDown.h>
 #include <animationBlink.h>
 #include <animationKnightRider.h>
+#include <animationDirect.h>
+#include <animationLoco.h>
+#include <log.h>
+
+#define Mot1En1 18
+#define Mot1En2 19  
+#define Mot1PWM 5
 
 bool    bLed = false;
 
@@ -28,6 +35,11 @@ void timerEvent_1s() {                  //called every second
   bLed = !bLed;
 }
 
+void timerEvent_10s() {                 //called every 10 seconds
+  mqtt_showWiFiStatus();
+  mqtt_checkWiFiStatus();
+}
+
 /**
  * @brief This method will be called, if an MQTT message to any of the registered topics arrived.
  * 
@@ -43,18 +55,28 @@ void mqtt_MessageReceived( uint16_t adr, uint8_t cmd, uint8_t val ) {
   for (uint8_t i=0; i < NR_OF_WAGONS; i++) {
     if ( animation[i] != NULL ) {     //there is an animation...
       if (animation[i]->getWagon()->wagon == adr ) {   //and the adress is correct
-        switch (cmd)  {
-          case 1:  animation[i]->start( val );
-                   break;
-          case 3:  animation[i]->stop();
-                   break;  
-          default: animation[i]->command( cmd, val );
-                   break;
-        }
+        animation[i]->command( cmd, val );
         break;
       }
     }
   }
+}
+
+
+void assignAnimations() {
+  animation[ BE ] = new TAnimationKnightRider();     //create an animation object
+  animation[ BE ]->setWagon( &allWagons[ BE ] );     //assign a wagon to this animatio
+
+  // animation[ SE ] = new TAnimationBlink();           //create an animation object
+  animation[ SE ] = new TAnimationDirect();         //create an animation object
+  animation[ SE ]->setWagon( &allWagons[ SE ] );    //assign a wagon to this animatio
+  
+  animation[ RO ] = new TAnimationUpDown();           //create an animation object
+  animation[ RO ]->setWagon( &allWagons[ RO ] );      //assign a wagon to this animatio
+
+  animation[ DE ] = new TAnimationLoco( Mot1En1, Mot1En2, Mot1PWM);           //create an animation object
+  animation[ DE ]->setWagon( &allWagons[ DE ] );      //assign a wagon to this animatio
+
 }
 
 
@@ -63,30 +85,28 @@ void setup() {
   digitalWrite( LED, bLed );
   Serial.begin(115200);
 
+  log_setup();
+
   wagon_setup();
   mqtt_setup();
   mqtt_register_Callback( &mqtt_MessageReceived );
 
   timer_register_Callback( tCB_100MS, &timerEvent_100ms );    //set the callback methods
   timer_register_Callback( tCB_1SEK, &timerEvent_1s );
+  timer_register_Callback( tCB_10SEK, &timerEvent_10s );
   timer_Setup();            //start a software based timer to avoid delay()
     
   for( uint8_t i=0; i < NR_OF_WAGONS; i++) {          //init array as empty
     animation[ NR_OF_WAGONS ] = NULL;
   }  
-
-  animation[ cDK ] = new TAnimationKnightRider();           //create an animation object
-  animation[ cDK ]->setWagon( &allWagons[ cDK ] );    //assign a wagon to this animatio
-  animation[ cDK ]->start(0);
+  assignAnimations();
 
   Serial.println("Setup done");
 }
 
 void loop() {  
 
-
   timer_Trigger();   //keep the timer running
-
  
   mqtt_loop();
 }

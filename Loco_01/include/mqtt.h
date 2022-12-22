@@ -8,12 +8,26 @@
 
 typedef void (*mqtt_callback_t) (uint16_t adr, uint8_t cmd, uint8_t val);		
 
+enum MQTT_State {
+  MQTT_None,
+  MQTT_Connecting,
+  MQTT_Connected,
+  MQTT_Run
+};
+
+extern MQTT_State mqttState;
+
 //prototypes
 void mqtt_setup();
 void mqtt_loop();
 
 void mqtt_register_Callback(  mqtt_callback_t cbf );
+void mqtt_enterState( MQTT_State mqs ) ;
+void mqtt_Received( uint16_t adr, uint8_t cmd, uint8_t val );
 
+uint8_t mqtt_getWiFiStatus();
+void    mqtt_showWiFiStatus();
+void    mqtt_checkWiFiStatus(); 
 
 struct TTopic {
 

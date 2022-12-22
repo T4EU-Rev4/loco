@@ -17,29 +17,19 @@ class TAnimationBasic
     uint8_t _portB;             //available in derived classes
     uint8_t _value;             //parameter that comes with the start() 
 
-    virtual void animate();             //this is the method where the real animation take place
-    virtual void beforeStart();         //will be called once before animation starts
-    virtual void afterStop();           //will be calls once after aniimation stops
+    virtual void animate();     //this is the method where the real animation take place
 
   public:
     TAnimationBasic();
     void setWagon( pWagon w );   //Connect this animation with a specific wagon
     pWagon getWagon();
 
-    virtual void trigger();               //call on a regular base to keep the animation running
-
-    virtual void start( uint8_t val );
-    virtual void stop();    
+    virtual void trigger();      //call on a regular base to keep the animation running
 
     virtual void command( uint8_t cmd, uint8_t val );
 };
 
 
-
-// struct TAnimation {
-//   TAnimationBasic*  animation;
-//   uint16_t          wagon;         
-// };
 
 
 
