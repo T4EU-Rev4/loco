@@ -85,7 +85,7 @@ void Motor::speed( uint8_t speed ) {
     if ( _speed != speed ) {
         _speed = speed;     
         ledcWrite(pwmChannel, speed2pwm[ _speed ]);   
-        Serial.println( speed2pwm[ _speed ] );
+        //Serial.println( speed2pwm[ _speed ] );
     }
 }
 
