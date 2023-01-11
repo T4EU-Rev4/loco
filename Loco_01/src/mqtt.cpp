@@ -8,7 +8,7 @@
 
 // WiFi
 const char *ssid          = "IBB"; // Enter your WiFi name
-const char *password      = "";  // Enter WiFi password
+const char *password      = "pc6sWPuV2YyFO5kSJKpW";  // Enter WiFi password
 
 // MQTT Broker
 // const char *mqtt_broker   = "broker.emqx.io";
@@ -37,6 +37,8 @@ mqtt_callback_t	CB_ON_RECEIVE = NULL;			//- Variablen für die Callback-Funktion
 WiFiClient   espClient;
 PubSubClient client( espClient );
 MQTT_State mqttState = MQTT_None;   //start value for the statemachine
+
+int mqtt_LastClientstate = -100;    //a unused value for init
 
 //https://forum.arduino.cc/t/int-aus-string-extrahieren/143685    thanks to jurs
 //local method
@@ -115,6 +117,7 @@ void mqtt_setup() {
  }
 
 void mqtt_loop() {
+  int clientstate;
   switch (mqttState) {
     case MQTT_None:   handshakeRequest = false;
                       break;
@@ -137,6 +140,24 @@ void mqtt_loop() {
                         handshakeRequest = false;
                       }
                       break;
+  }
+  clientstate = client.state() ;
+  if (clientstate != mqtt_LastClientstate) {
+    //Do not flood logfile
+    mqtt_LastClientstate = clientstate;
+    switch ( clientstate ) {
+      case -4 : Serial.println("MQTT_CONNECTION_TIMEOUT"); break;
+      case -3 : Serial.println("MQTT_CONNECTION_LOST"); break; 
+      case -2 : Serial.println("MQTT_CONNECT_FAILED");  break;
+      case -1 : Serial.println("MQTT_DISCONNECTED");  break;
+      case  0 : break;  //Serial.println("MQTT_CONNECTED");  break;
+      case  1 : Serial.println("MQTT_CONNECT_BAD_PROTOCOL");  break;
+      case  2 : Serial.println("MQTT_CONNECT_BAD_CLIENT_ID");  break;
+      case  3 : Serial.println("MQTT_CONNECT_UNAVAILABLE");  break;
+      case  4 : Serial.println("MQTT_CONNECT_BAD_CREDENTIALS");  break;
+      case  5 : Serial.println("MQTT_CONNECT_UNAUTHORIZED");  break;
+      default : Serial.print("unknown state: "); Serial.println( client.state() );
+    }
   }
   client.loop();
 }

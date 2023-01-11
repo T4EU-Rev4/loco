@@ -80,6 +80,7 @@ class I2CDevice
      */
     void write( );
 
+    void scan();
 
     //-----Bit oriented methods
     void pinMode(uint8_t pin, uint8_t mode);           

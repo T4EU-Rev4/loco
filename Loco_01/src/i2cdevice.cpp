@@ -97,3 +97,25 @@ void I2CDevice::digitalWrite(uint8_t pin, uint8_t value) {
     }
 }
 
+
+void I2CDevice::scan() {
+
+  Serial.println ("I2C Scanning ...");
+  byte count = 0;
+
+  Wire.begin();
+  for (byte i = 8; i < 120; i++) {
+    Wire.beginTransmission (i);          // Begin I2C transmission Address (i)
+    if (Wire.endTransmission () == 0) {  // Receive 0 = success (ACK response) 
+      Serial.print ("Found address: ");
+      Serial.print (" (0x");
+      Serial.print (i, HEX);     // PCF8574 7 bit address
+      Serial.println ("), ");
+      count++;
+    }
+  }
+  Serial.print ("\nFound ");      
+  Serial.print (count, DEC);        // numbers of devices
+  Serial.println (" device(s).");
+}
+

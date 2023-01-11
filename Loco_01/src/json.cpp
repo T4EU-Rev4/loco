@@ -84,12 +84,24 @@ void json_createServerMsg( enum jsMsgTyp msgTyp ){
 
 void json_mqtt_callback(char *topic, byte *payload, unsigned int length) {
   StaticJsonDocument<256> doc;
+  char buffer[BUFFERSIZE];
+  uint16_t size;
+
+  Serial.print("mqtt rec:");
+  Serial.println( topic );
+  
   DeserializationError error = deserializeJson(doc, payload, length);
   if (error) {
     Serial.print(F("deserializeJson() failed: "));
     Serial.println(error.f_str());
     return;
   }
+  
+  size = serializeJson( doc, &buffer[0], BUFFERSIZE );
+  Serial.print(size);
+  Serial.print(":");
+  Serial.println( buffer );
+
   //-----
   if ( doc["msgType"] == msgTypes[mt_boot] ) {
     //brings new values for client and topic
@@ -119,7 +131,7 @@ void json_mqtt_callback(char *topic, byte *payload, unsigned int length) {
     //Attribute sender is actuelly not needed 
     handshakeRequest = true;
     handshakeCount++;
-    //Serial.print("Handshake request  ");
+    //Serial.println("Handshake request  ");
   }
 
 

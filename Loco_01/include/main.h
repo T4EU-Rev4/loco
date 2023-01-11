@@ -22,5 +22,12 @@
 
 #define NR_OF_PORTS 2
 
+#define BUTTON1     0
+#define BUTTON2     4
+#define BUTTON3     16
+#define BUTTON4     17     
+
+void mqtt_MessageReceived( uint16_t adr, uint8_t cmd, uint8_t val );
+
 
 #endif
