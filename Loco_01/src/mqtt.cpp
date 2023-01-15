@@ -7,8 +7,8 @@
 
 
 // WiFi
-const char *ssid          = "IBB"; // Enter your WiFi name
-const char *password      = "pc6sWPuV2YyFO5kSJKpW";  // Enter WiFi password
+const char *ssid          = "TPMC"; // Enter your WiFi name
+const char *password      = "kaun_Technikos_PMC_device";  // Enter WiFi password
 
 // MQTT Broker
 // const char *mqtt_broker   = "broker.emqx.io";

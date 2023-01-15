@@ -12,7 +12,7 @@ enum jsMsgTyp {
     mt_handshake
 };
 
-#define NR_OF_PARAMS        7       //How many elements are in the following enum
+#define NR_OF_PARAMS        8       //How many elements are in the following enum
 
 enum jsParam {      //List of the valid JSON parameters
     Country,   
@@ -20,8 +20,9 @@ enum jsParam {      //List of the valid JSON parameters
     Client,
     Topic,
     Wagon,
-    Pin,
-    Status
+    Action,
+    Pin,            //deprecated
+    Status          //deprecated
 };
 
 #define BUFFERSIZE  256

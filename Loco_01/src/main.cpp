@@ -78,7 +78,7 @@ void assignAnimations() {
   animation[ BE ]->setWagon( &allWagons[ BE ] );     //assign a wagon to this animation
 
   // animation[ SE ] = new TAnimationBlink();           //create an animation object
-  animation[ SE ] = new TAnimationDirect();         //create an animation object
+  animation[ SE ] = new TAnimationBlink();         //create an animation object
   animation[ SE ]->setWagon( &allWagons[ SE ] );    //assign a wagon to this animation
   
   animation[ RO ] = new TAnimationUpDown();           //create an animation object

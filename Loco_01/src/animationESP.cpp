@@ -49,7 +49,7 @@ void TAnimationESP::command( uint8_t cmd, uint8_t val ) {
   switch (cmd)  {
     case 1: start( val );
             break;
-    case 3: stop();
+    case 0: stop();
             break;  
     default: ;   //command( cmd, val );
              break;

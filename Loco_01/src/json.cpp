@@ -30,8 +30,9 @@ String msgParam[NR_OF_PARAMS] = {       //keep inline with enum jsParam
     "client",
     "topic",
     "wagon",
-    "pin",
-    "status"
+    "action",
+    "pin",        //deprecated
+    "status"      //deprecated
 };
 
 void json_setMAC( String mac ){
@@ -121,9 +122,25 @@ void json_mqtt_callback(char *topic, byte *payload, unsigned int length) {
     //command for the device received
     //We accept this command without teking the actual MQTT-State into account
     uint16_t adr = convertCountryCode( String(  (const char*)doc["msgData"][ msgParam[Wagon] ]  ).c_str() );
-    uint8_t  cmd = atoi( String(  (const char*)doc["msgData"][ msgParam[Pin] ]  ).c_str() ); 
-    uint8_t  val = atoi( String(  (const char*)doc["msgData"][ msgParam[Status] ]  ).c_str() ); 
-    mqtt_Received( adr, cmd, val );
+    uint8_t  cmd = atoi( String(  (const char*)doc["msgData"][ msgParam[Action] ]  ).c_str() ); 
+    // uint8_t  val = atoi( String(  (const char*)doc["msgData"][ msgParam[Status] ]  ).c_str() ); 
+    mqtt_Received( adr, cmd, 0 );  //start/stop the animation with no time limit  
+
+
+    Serial.print("wagon=");
+    Serial.println( String(  (const char*)doc["msgData"][ msgParam[Wagon] ]  ).c_str() );
+    Serial.print("action=");
+    Serial.println( String(  (const char*)doc["msgData"][ msgParam[Action] ] ).c_str() );
+   
+
+    // JsonVariant test = doc["msgData"][ msgParam[Action] ];
+    // if (!test.isNull()) {   //if attribute action is missing, start for 3 sec
+    //   uint8_t  cmd = atoi( String(  (const char*)doc["msgData"][ msgParam[Action] ]  ).c_str() ); 
+    //   //uint8_t  val = atoi( String(  (const char*)doc["msgData"][ msgParam[Status] ]  ).c_str() ); 
+    //   mqtt_Received( adr, cmd, 0 );  //start/stop the animation with no time limit   
+    // } else {
+    //   mqtt_Received( adr, 1, 255 );  //start the animation with a time limit of 3 sec   
+    // }  
 
   }
   if ( doc["msgType"] == msgTypes[mt_handshake] ) {

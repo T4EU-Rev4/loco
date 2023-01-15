@@ -19,7 +19,7 @@ TWagon allWagons[ NR_OF_WAGONS ] = {
       {0x00, convertCountryCode( countries[HR] )}, 
       {0x00, convertCountryCode( countries[LT] )}, 
       {0x31, convertCountryCode( countries[DE] )}, 
-      {0x00, convertCountryCode( countries[DK] )}, 
+      {0x32, convertCountryCode( countries[DK] )}, 
       {0x00, convertCountryCode( countries[PT] )}, 
       {0x00, convertCountryCode( countries[CH] )}, 
       {0x00, convertCountryCode( countries[X1] )}, 
