@@ -27,6 +27,8 @@ TAnimationBasic* animation[ NR_OF_WAGONS ];   //Animations for each wagon
  ezButton button1(BUTTON1);  // create ezButton object that attach to pin BUTTON1;
  ezButton button2(BUTTON2);  // create ezButton object that attach to pin BUTTON2;
 
+ ezButton button3(BUTTON3);  // create ezButton object that attach to pin BUTTON2;
+
 
 
 void timerEvent_100ms() {                 //called every 100ms (round about)
@@ -90,6 +92,10 @@ void assignAnimations() {
   animation[ DE ] = new TAnimationSelf();         //create an animation object
   animation[ DE ]->setWagon( &allWagons[ DE ] );    //assign a wagon to this animation
 
+  animation[ DK ] = new TAnimationSelf();         //create an animation object
+  animation[ DK ]->setWagon( &allWagons[ DK ] );    //assign a wagon to this animation
+
+
 }
 
 
@@ -124,6 +130,7 @@ void loop() {
   timer_Trigger();   //keep the timer running
   button1.loop();
   button2.loop();
+  button3.loop();
   
   mqtt_loop();
 
@@ -135,6 +142,11 @@ void loop() {
   if (button2.isPressed()) {
     Serial.println("button 2");
     mqtt_MessageReceived( convertCountryCode( countries[BE] ), 1, 30 );    
+  }
+
+  if (button3.isPressed()) {
+    Serial.println("button 3");
+    mqtt_MessageReceived( convertCountryCode( countries[DK] ), 1, 0 );    
   }
 
   if (scan == 0) {
