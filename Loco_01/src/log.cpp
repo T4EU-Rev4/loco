@@ -16,20 +16,20 @@ void log_setup(){
   u8x8log.begin(u8x8, U8LOG_WIDTH, U8LOG_HEIGHT, u8log_buffer);
   u8x8log.setRedrawMode(1);		// 0: Update screen with newline, 1: Update screen for every char  
   u8x8log.print("T4EU Rev4\n");
-
 }
 
 void log_print(const String &s){
   u8x8log.print( s );
-
+  //u8x8log.print("\n");
 }
 
 void log_print(const char str[]){
   u8x8log.print( str );
-    
+  //u8x8log.print("\n");    
 }
 
 void log_line( uint8_t line, const char* s){
   u8x8.clearLine( line );
   u8x8.drawString( 0, line, s );
+  //u8x8log.print("\n");
 }

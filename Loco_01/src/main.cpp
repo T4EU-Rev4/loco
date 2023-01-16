@@ -16,8 +16,10 @@
 #define Mot1En2     19  
 #define Mot1PWM     5
 #define SCANDELAY   10
+#define SCREENDELAY 5
 bool    bLed = false;
 uint8_t scan = SCANDELAY;
+uint8_t screen = SCREENDELAY;
 I2CDevice scanner = I2CDevice(0);
 
 extern TWagon allWagons[ NR_OF_WAGONS ];      //Assigning I2C-Busadresses to Country-Code
@@ -42,7 +44,7 @@ void timerEvent_100ms() {                 //called every 100ms (round about)
 void timerEvent_1s() {                  //called every second
   digitalWrite( LED, bLed );
   bLed = !bLed;
-
+  if (screen > 0) { screen--; }
   //  mqtt_MessageReceived( convertCountryCode( countries[DE] ), 1, 30 );
 }
 
@@ -152,6 +154,11 @@ void loop() {
   if (scan == 0) {
     scanner.scan();
     scan = SCANDELAY;
+  }
+
+  if (screen == 0 ) {
+    
+    screen = SCREENDELAY;
   }
 }
 

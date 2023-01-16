@@ -7,8 +7,10 @@
 
 
 // WiFi
-const char *ssid          = "TPMC"; // Enter your WiFi name
-const char *password      = "kaun_Technikos_PMC_device";  // Enter WiFi password
+// const char *ssid          = "TPMC"; // Enter your WiFi name
+// const char *password      = "kaun_Technikos_PMC_device";  // Enter WiFi password
+const char *ssid          = "Mi Mi Mi"; // Enter your WiFi name
+const char *password      = ".Born1999.";  // Enter WiFi password
 
 // MQTT Broker
 // const char *mqtt_broker   = "broker.emqx.io";
@@ -27,6 +29,7 @@ const int   mqtt_port     = 1883;
 // const int   mqtt_port     = 1883;
 
 
+#define MQTT_SET_KEEP_ALIVE 60
 
 #define WiFiRestartTimeout  20
 uint8_t timeout = WiFiRestartTimeout;         //try to reboot after an unexpected disconnect
@@ -93,11 +96,20 @@ void initWiFi() {
   mqtt_showWiFiStatus();
 }
 
+void mqtt_CheckRequest( boolean res ) {
+  if (!res) {
+    Serial.print("failed with state ");
+    Serial.print(client.state());
+    mqttState = MQTT_None;
+  }
+}
+
 void mqtt_setup() {
   uint8_t res;
   
   initWiFi();
   mqtt_enterState( MQTT_None ) ;
+  client.setKeepAlive( MQTT_SET_KEEP_ALIVE );
   client.setServer(mqtt_broker, mqtt_port);    //connecting to a mqtt broker
   client.setCallback( json_mqtt_callback );
   while (!client.connected()) {
@@ -118,6 +130,7 @@ void mqtt_setup() {
 
 void mqtt_loop() {
   int clientstate;
+  String s;
   switch (mqttState) {
     case MQTT_None:   handshakeRequest = false;
                       break;
@@ -133,7 +146,7 @@ void mqtt_loop() {
     case MQTT_Run:    if (handshakeRequest) { //stable 
                         //Serial.print("-  Handshake response  " );
                         //Serial.println( handshakeCount );
-                        String s = "Handshake: " + String(handshakeCount);
+                        s = "Handshake: " + String(handshakeCount);
                         log_line( 2, s.c_str() );
                         json_createServerMsg( mt_handshake );
                         client.publish( TopicSend.c_str(), toPublish  );
@@ -145,19 +158,36 @@ void mqtt_loop() {
   if (clientstate != mqtt_LastClientstate) {
     //Do not flood logfile
     mqtt_LastClientstate = clientstate;
+    s = "unknown state: ";
     switch ( clientstate ) {
-      case -4 : Serial.println("MQTT_CONNECTION_TIMEOUT"); break;
-      case -3 : Serial.println("MQTT_CONNECTION_LOST"); break; 
-      case -2 : Serial.println("MQTT_CONNECT_FAILED");  break;
-      case -1 : Serial.println("MQTT_DISCONNECTED");  break;
-      case  0 : break;  //Serial.println("MQTT_CONNECTED");  break;
-      case  1 : Serial.println("MQTT_CONNECT_BAD_PROTOCOL");  break;
-      case  2 : Serial.println("MQTT_CONNECT_BAD_CLIENT_ID");  break;
-      case  3 : Serial.println("MQTT_CONNECT_UNAVAILABLE");  break;
-      case  4 : Serial.println("MQTT_CONNECT_BAD_CREDENTIALS");  break;
-      case  5 : Serial.println("MQTT_CONNECT_UNAUTHORIZED");  break;
-      default : Serial.print("unknown state: "); Serial.println( client.state() );
+      case -4 : s = "MQTT_CONNECTION_TIMEOUT"; break;
+      case -3 : s = "MQTT_CONNECTION_LOST"; break; 
+      case -2 : s = "MQTT_CONNECT_FAILED";  break;
+      case -1 : s = "MQTT_DISCONNECTED";  break;
+      case  0 : s = ""; break;  //Serial.println("MQTT_CONNECTED");  break;
+      case  1 : s = "MQTT_CONNECT_BAD_PROTOCOL";  break;
+      case  2 : s = "MQTT_CONNECT_BAD_CLIENT_ID";  break;
+      case  3 : s = "MQTT_CONNECT_UNAVAILABLE";  break;
+      case  4 : s = "MQTT_CONNECT_BAD_CREDENTIALS";  break;
+      case  5 : s = "MQTT_CONNECT_UNAUTHORIZED";  break;
     }
+    if (s.length() > 0) {
+      Serial.println( s );
+      log_line( 5, s.c_str() );
+    }
+    // switch ( clientstate ) {
+    //   case -4 : Serial.println("MQTT_CONNECTION_TIMEOUT"); break;
+    //   case -3 : Serial.println("MQTT_CONNECTION_LOST"); break; 
+    //   case -2 : Serial.println("MQTT_CONNECT_FAILED");  break;
+    //   case -1 : Serial.println("MQTT_DISCONNECTED");  break;
+    //   case  0 : break;  //Serial.println("MQTT_CONNECTED");  break;
+    //   case  1 : Serial.println("MQTT_CONNECT_BAD_PROTOCOL");  break;
+    //   case  2 : Serial.println("MQTT_CONNECT_BAD_CLIENT_ID");  break;
+    //   case  3 : Serial.println("MQTT_CONNECT_UNAVAILABLE");  break;
+    //   case  4 : Serial.println("MQTT_CONNECT_BAD_CREDENTIALS");  break;
+    //   case  5 : Serial.println("MQTT_CONNECT_UNAUTHORIZED");  break;
+    //   default : Serial.print("unknown state: "); Serial.println( client.state() );
+    // }
   }
   client.loop();
 }
@@ -178,23 +208,23 @@ void mqtt_enterState( MQTT_State mqs ) {
                       break;
     case MQTT_Connecting:  
                       Serial.println( "MQTT_Connecting:" );
-                      client.subscribe( TopicRec0.c_str() );   
+                      mqtt_CheckRequest( client.subscribe( TopicRec0.c_str() ) );  
                       Serial.println( "  subscribing: " + TopicRec0) ;
                       //send a JSON-Msg to the Server
                       json_createServerMsg( mt_boot );    
-                      client.publish( TopicSend.c_str(), toPublish  );
+                      mqtt_CheckRequest( client.publish( TopicSend.c_str(), toPublish  ) );
                       Serial.println( "  publishing: " + String(toPublish) ) ;
                       break;
     case MQTT_Connected:   //will be entered, if boot message was received @ topic TopicRec0
                       Serial.println( "MQTT_Connected:" );
                       Serial.println( "  unsubscribing: " + TopicRec0 ) ;
-                      client.unsubscribe( TopicRec0.c_str()  );
+                      mqtt_CheckRequest( client.unsubscribe( TopicRec0.c_str()  ) );
                       Serial.println( "  subscribing: " + TopicRec1 ) ;
-                      client.subscribe( TopicRec1.c_str() );
+                      mqtt_CheckRequest( client.subscribe( TopicRec1.c_str() ) );
                       //send a JSON-Msg to the Server
                       json_createServerMsg( mt_topic );    
                       Serial.println( "  publishing: " + String(toPublish) ) ;
-                      client.publish( TopicSend.c_str(), toPublish  );
+                      mqtt_CheckRequest( client.publish( TopicSend.c_str(), toPublish  ) );
                       break;
     case MQTT_Run:    Serial.println( "MQTT_Run:" );
                       break;
@@ -216,6 +246,7 @@ void mqtt_showWiFiStatus() {                 //called every 10 seconds
     case WL_DISCONNECTED:    s = "WL_DISCONNECTED"; break;
   default: s = "Unknown WiFi state";
   }
+  // Serial.println( s.c_str() );
   log_line( 7, s.c_str() );
 }
 

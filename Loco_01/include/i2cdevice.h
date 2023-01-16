@@ -22,7 +22,8 @@
 #define SDA 22
 #define SCL 21
 
-#define I2CDev_NrOfPorts 2
+#define I2CDev_NrOfPorts  2
+#define EXCLUDE_FROM_SCAN 0x3C    //Display
 
 
 class I2CDevice
