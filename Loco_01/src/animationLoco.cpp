@@ -53,7 +53,11 @@ void TAnimationLoco::trigger(){      //call on a regular base to keep the animat
 void TAnimationLoco::command( uint8_t cmd, uint8_t val ) {
     TDirection dir;
     switch( cmd ) {
-        case  1: dir = mdLeft;      break;
+        case  0: val = 0;          //Stop animation
+                 break;
+        case  1: dir = mdLeft;     //start animation
+                 val=1;
+                 break;
         case  3: dir = mdRight;     break;
         default: dir = mdFree;
     }

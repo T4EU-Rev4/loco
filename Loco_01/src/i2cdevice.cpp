@@ -105,15 +105,13 @@ void I2CDevice::scan() {
 
   Wire.begin();
   for (byte i = 8; i < 120; i++) {
-    if ( i != EXCLUDE_FROM_SCAN) {
-        Wire.beginTransmission (i);          // Begin I2C transmission Address (i)
-        if (Wire.endTransmission () == 0) {  // Receive 0 = success (ACK response) 
-        Serial.print ("Found address: ");
-        Serial.print (" (0x");
-        Serial.print (i, HEX);     // PCF8574 7 bit address
-        Serial.println ("), ");
-        count++;
-        }
+    Wire.beginTransmission (i);          // Begin I2C transmission Address (i)
+    if (Wire.endTransmission () == 0) {  // Receive 0 = success (ACK response) 
+    Serial.print ("Found address: ");
+    Serial.print (" (0x");
+    Serial.print (i, HEX);     // PCF8574 7 bit address
+    Serial.println ("), ");
+    count++;
     }
   }
   Serial.print ("\nFound ");      

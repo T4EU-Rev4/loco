@@ -9,6 +9,7 @@
 #include <animationDirect.h>
 #include <animationLoco.h>
 #include <animationSelf.h>
+#include <animationStartStop.h>
 #include <log.h>
 #include <ezButton.h>
 
@@ -76,13 +77,13 @@ void mqtt_MessageReceived( uint16_t adr, uint8_t cmd, uint8_t val ) {
   }
 }
 
-
+#ifdef TRAIN_GERMANY
 void assignAnimations() {
   animation[ BE ] = new TAnimationKnightRider();     //create an animation object
   animation[ BE ]->setWagon( &allWagons[ BE ] );     //assign a wagon to this animation
 
-  // animation[ SE ] = new TAnimationBlink();           //create an animation object
-  animation[ SE ] = new TAnimationBlink();         //create an animation object
+  // animation[ SE ] = new TAnimationBlink();         //create an animation object
+  animation[ SE ] = new TAnimationStartStop();         //create an animation object
   animation[ SE ]->setWagon( &allWagons[ SE ] );    //assign a wagon to this animation
   
   animation[ RO ] = new TAnimationUpDown();           //create an animation object
@@ -96,10 +97,30 @@ void assignAnimations() {
 
   animation[ DK ] = new TAnimationSelf();         //create an animation object
   animation[ DK ]->setWagon( &allWagons[ DK ] );    //assign a wagon to this animation
-
-
 }
+#endif
 
+#ifdef TRAIN_NORWAY
+void assignAnimations() {
+  animation[ IT ] = new TAnimationStartStop();     //create an animation object
+  animation[ IT ]->setWagon( &allWagons[ IT ] );     //assign a wagon to this animation
+
+  animation[ FR ] = new TAnimationStartStop();         
+  animation[ FR ]->setWagon( &allWagons[ FR ] );    
+  
+  animation[ NO ] = new TAnimationStartStop();           
+  animation[ NO ]->setWagon( &allWagons[ NO ] );      
+
+  animation[ PT ] = new TAnimationStartStop( );          
+  animation[ PT ]->setWagon( &allWagons[ PT ] );      
+
+  animation[ NL ] = new TAnimationStartStop();        
+  animation[ NL ]->setWagon( &allWagons[ NL ] );    
+
+  animation[ LX ] = new TAnimationStartStop();        
+  animation[ LX ]->setWagon( &allWagons[ LX ] );   
+}
+#endif
 
 void setup() {
   pinMode(LED, OUTPUT);

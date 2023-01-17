@@ -4,6 +4,24 @@
 #include "Arduino.h"
 #include "I2Cdevice.h"
 
+/**
+ * @brief You can select different type of trains by uncomment one of the following symbols
+ *        Always uncomment only one symbol and recompile the project.
+ *        You can define more symbols for more trains as you like.
+ *        Just search for one of the existing symbols and append a new section there wirh the 
+ *        changes you need.
+ *        1. Add a new symbol here
+ *        2. Change file wagon.cpp according to the existing examples
+ *        3. change file main.cpp according to the existing examples
+ */
+
+#define TRAIN_GERMANY   
+//#define TRAIN_NORWAY    
+
+
+
+//-- no changes neccesary after this line ---------
+
 #define NR_OF_WAGONS  25
 
 enum CountryCode {
@@ -11,7 +29,7 @@ enum CountryCode {
   IT, NO, IR, HR, LT, DE,
   DK, PT, CH, X1, X2, NL,
   TR, AT, PL, FR, SK, SI,
-  BE, SE, RO, X3, X4, X5
+  BE, SE, RO, X3, X4, LX
 };
 
 
@@ -20,7 +38,7 @@ const char countries[NR_OF_WAGONS][3] = {
     "IT","NO","IR","HR","LT","DE",
     "DK","PT","CH","X1","X2","NL",
     "TR","AT","PL","FR","SK","SI",
-    "BE","SE","RO","X3","X4","X5"
+    "BE","SE","RO","X3","X4","LX"
 };
 
 //prototype definitions

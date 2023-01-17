@@ -9,7 +9,7 @@
     <entity-names>
       <counter>
         <item-type type-id="class" type="Class" />
-        <value>10</value>
+        <value>11</value>
       </counter>
       <counter>
         <item-type stereotype="struct" type-id="class" type="Class" />
@@ -39,11 +39,11 @@
     <entity-ids>
       <counter>
         <item-type type-id="group" type="Group" />
-        <value>1468</value>
+        <value>1499</value>
       </counter>
       <counter>
         <item-type type-id="class" type="Class" />
-        <value>15</value>
+        <value>16</value>
       </counter>
       <counter>
         <item-type type-id="property" type="Property" />
@@ -59,15 +59,15 @@
       </counter>
       <counter>
         <item-type type-id="generalization" type="Generalization" />
-        <value>8</value>
+        <value>9</value>
       </counter>
       <counter>
         <item-type type-id="comment" type="Comment" />
-        <value>15</value>
+        <value>16</value>
       </counter>
       <counter>
         <item-type type-id="comment-connector" type="Comment Connector" />
-        <value>16</value>
+        <value>17</value>
       </counter>
       <counter>
         <item-type type-id="state" type="State" />
@@ -123,7 +123,7 @@
     <fields>
       <counter>
         <type>SoftwareIdeasModeler.Core.DiagramItems.Fields.OperationField</type>
-        <value>61</value>
+        <value>63</value>
       </counter>
       <counter>
         <type>SoftwareIdeasModeler.Core.DiagramItems.Fields.EnumerationItemField</type>
@@ -262,6 +262,10 @@ animate()    bevorStart()   and   afterStop()</comment>
 }</comment>
     </item>
     <item id="di9319adde060744a8bd8ca139823b3f861721" cid="CN014" type="comment-connector" name="" style-class="" creator="" creation-date="01/16/2023 15:26:08" from="f59a45cd64ac4316a86316ef8e493e52" to="f59a45cd64ac4316a86316ef8e493e52" />
+    <item id="7052bde023734c68857cb834f0b21f4a" cid="CMT015" type="comment" name="Comment" style-class="" creator="" creation-date="01/17/2023 13:54:50">
+      <comment>Sets all bits of a PCF8575 port expander on start() and clears all of them on stop()</comment>
+    </item>
+    <item id="di9545c55cd8ce4ae485c699ff24d64e7d9022" cid="CN016" type="comment-connector" name="" style-class="" creator="" creation-date="01/17/2023 13:54:50" from="7052bde023734c68857cb834f0b21f4a" to="ff947e2107c147bfb92ac90c53a65aea" />
   </items>
   <models>
     <model id="p0ef51a28b0da4f1f81ede42f0b5fea9b_111890057" name="Model1" namespace="" order-index="1">
@@ -277,7 +281,7 @@ animate()    bevorStart()   and   afterStop()</comment>
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="uml-class" id="p82d18b1ed6c34cbd863b5663db62da72_356747035" name="Animation" order-index="1" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-field-tags="true" show-empty-compartments="true" show-special-indicators="false" show-rules="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-visibility-sign="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-data="true" show-description="false" show-field-description="false" auto-routed-paths="false" default-line-style="default" view-location="-872,50" zoom="0.6">
+      <diagram type="uml-class" id="p82d18b1ed6c34cbd863b5663db62da72_356747035" name="Animation" order-index="1" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-field-tags="true" show-empty-compartments="true" show-special-indicators="false" show-rules="true" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-visibility-sign="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-data="true" show-description="false" show-field-description="false" auto-routed-paths="false" default-line-style="default" view-location="-1419,886" zoom="1.2">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -289,7 +293,7 @@ animate()    bevorStart()   and   afterStop()</comment>
           </authors>
           <description />
           <creation-date>11/24/2022 19:57:20</creation-date>
-          <change-date>12/22/2022 18:30:47</change-date>
+          <change-date>01/17/2023 13:54:50</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
@@ -819,6 +823,13 @@ animate()    bevorStart()   and   afterStop()</comment>
               <end-role id="umlar-3917c5d2-371d-4965-9bdf-cf6d4497e7ec" name="" navigability="" association-type="association" visibility="private" />
             </relation>
           </item>
+          <item id="ff947e2107c147bfb92ac90c53a65aea" cid="C015" type="class" name="TAnimationStartStop" style-class="" change-tracking-state="added" creator="" creation-date="01/17/2023 13:53:37">
+            <operations>
+              <operation id="o27240fcc19e54ac19bccc3a1e2814325829" cid="OP061" name="beforeStart" creation-date="01/17/2023 13:54:05" type="" type-id="" visibility="protected" />
+              <operation id="od5ae187782c34d7e9bc65e9a2d37b57d639" cid="OP062" name="afterStop" creation-date="01/17/2023 13:54:29" type="" type-id="" visibility="protected" />
+            </operations>
+          </item>
+          <item id="13b2c62b844a4d3bacd4b899cdf85076" cid="GNR008" type="generalization" name="" style-class="" change-tracking-state="added" creator="" creation-date="01/17/2023 13:53:37" from="ff947e2107c147bfb92ac90c53a65aea" to="547125c1dfc3404dab2c68eb0ee3b3ce" visibility="package" />
         </abstract-items>
         <layer id="790b3358bb6a450a967e85b4951c6d6a" name="Default" visible="true" enabled="true" locked="false">
           <item id="8338a9c5c34e432d8b7b8d2738ee8e31" iid="5c98fee7549d40bfa2b593ed9934ff26" creation-date="11/24/2022 19:57:36" order-index="0" type="entity">
@@ -1073,6 +1084,31 @@ animate()    bevorStart()   and   afterStop()</comment>
               </points>
             </layout>
             <relation from="9907a8d84e114abd99320db46b99bdc1" from-iid="cd75f2a612084b05baba97452c558e5c" to="148eb296a13845fcb198888b5e720e0a" to-iid="eaf5bcee7ead437d941adf123507a8bb" />
+          </item>
+          <item id="ff947e2107c147bfb92ac90c53a65aea" iid="8b3d9721afd44d61912361fe31dc4aef" creation-date="01/17/2023 13:53:37" order-index="42" type="entity">
+            <layout ax="-707.5" ay="869.0493" awidth="169" aheight="96" x="-707.5" y="869.0493" width="169" height="96" rotation-center="-38.5,32" />
+            <class />
+          </item>
+          <item id="13b2c62b844a4d3bacd4b899cdf85076" iid="360fa6bb8e0d40a4ac74bc0e1a7843fd" creation-date="01/17/2023 13:53:37" order-index="43" type="relation">
+            <layout line-style="oblique" lock-to-fields="false" auto-path="" x1="-539" y1="869" x2="-286" y2="727" start-border-pos="0.2499680519104" end-border-pos="0.76786527633667" name-position="0,20">
+              <points>
+                <point x="-539" y="869" />
+                <point x="-286" y="727" />
+              </points>
+            </layout>
+            <relation from="ff947e2107c147bfb92ac90c53a65aea" from-iid="8b3d9721afd44d61912361fe31dc4aef" to="547125c1dfc3404dab2c68eb0ee3b3ce" to-iid="c5aa338d56af48868108eee8c376bc62" />
+          </item>
+          <item id="7052bde023734c68857cb834f0b21f4a" iid="6d0f9bcb086042428f42990f085aa8a2" creation-date="01/17/2023 13:54:50" order-index="44" type="entity">
+            <layout ax="-699.5" ay="998.574" awidth="153" aheight="96.25" x="-699.5" y="998.574" width="153" height="96.25" rotation-center="-6.5,1.875" />
+          </item>
+          <item id="di9545c55cd8ce4ae485c699ff24d64e7d9022" iid="f675bac21ba44db797e6ef638c2f6d09" creation-date="01/17/2023 13:54:50" order-index="45" type="comment-connector">
+            <layout line-style="oblique" lock-to-fields="false" auto-path="" x1="-623" y1="999" x2="-623" y2="965" start-border-pos="0.125" end-border-pos="0.625" name-position="0,20">
+              <points>
+                <point x="-623" y="999" />
+                <point x="-623" y="965" />
+              </points>
+            </layout>
+            <relation from="7052bde023734c68857cb834f0b21f4a" from-iid="6d0f9bcb086042428f42990f085aa8a2" to="ff947e2107c147bfb92ac90c53a65aea" to-iid="8b3d9721afd44d61912361fe31dc4aef" />
           </item>
         </layer>
       </diagram>
