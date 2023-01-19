@@ -18,9 +18,14 @@ const char *password      = ".Born1999.";  // Enter WiFi password
 // const char *mqtt_password = "public";
 // const int   mqtt_port     = 1883;
 
-const char *mqtt_broker   = "broker.hivemq.com";
-const char *mqtt_username = "";
-const char *mqtt_password = "";
+// const char *mqtt_broker   = "broker.hivemq.com";
+// const char *mqtt_username = "";
+// const char *mqtt_password = "";
+// const int   mqtt_port     = 1883;
+
+const char *mqtt_broker   = "168.119.166.30";
+const char *mqtt_username = "TrainForEurope";
+const char *mqtt_password = "t4eu_2023";
 const int   mqtt_port     = 1883;
 
 // const char *mqtt_broker   = "192.168.1.21";    //my local Mosquitto

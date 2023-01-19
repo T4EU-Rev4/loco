@@ -54,6 +54,7 @@ void TAnimationLoco::command( uint8_t cmd, uint8_t val ) {
     TDirection dir;
     switch( cmd ) {
         case  0: val = 0;          //Stop animation
+                _acc = accDown;
                  break;
         case  1: dir = mdLeft;     //start animation
                  val=1;
