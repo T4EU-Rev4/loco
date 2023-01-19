@@ -1,0 +1,80 @@
+R"=====(
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			#dieSeite { width: 500px;	}
+		</style>
+		<title>BBS TGHS Wagon Control</title>
+	</head>
+<body>
+<div id="dieSeite">
+<fieldset>
+	<legend><b>Wagon DK</b></legend>
+	<!-- Ein Form mit einem Befehl -->
+	<fieldset>
+		<legend><b>Start and Stop animation</b></legend>
+		<form action="/set" method="GET">
+			<input type="hidden" id="wagon" name="wagon" value="DE">
+			<input type="hidden" id="cmd" name="cmd" value="1">
+			<input type="hidden" id="val" name="val" value="0">
+			<input type="submit" value="Start animation">
+		</form>		
+		<br>
+		<form action="/set" method="GET">
+			<input type="hidden" id="wagon" name="wagon" value="DE">
+			<input type="hidden" id="cmd" name="cmd" value="0">
+			<input type="hidden" id="val" name="val" value="0">
+			<input type="submit" value="Stop animation">
+		</form>		
+	</fieldset>	
+	<!-- Ein Form mit einem Befehl -->
+	<fieldset>
+		<legend><b>Control animation</b></legend>
+		<form action="/set" method="GET">
+			<input type="hidden" id="wagon" name="wagon" value="DK">
+			<label for="cmd">Command:</label>
+			<select id="cmd" name="cmd">
+			  <option value="2">Play track nr</option>
+			  <option value="3">Stop playing</option>
+			  <option value="4">Volume up</option>
+			  <option value="5">Volume down</option>
+			  <option value="6">Set volume to</option>
+			</select>	  
+			Track:
+			<input type="number" name="val" min="1" max="25" value="1">&nbsp;&nbsp;
+			<input type="submit" value="Senden">
+		</form>		
+	</fieldset>	
+</fieldset>
+
+<br>
+
+<fieldset>
+	<legend><b>Wagon DE</b></legend>
+	<fieldset>
+		<legend><b>Start and Stop animation</b></legend>
+		<form action="/set" method="GET">
+			<input type="hidden" id="wagon" name="wagon" value="DE">
+			<input type="hidden" id="cmd" name="cmd" value="1">
+			<input type="hidden" id="val" name="val" value="0">
+			<input type="submit" value="Start animation">
+		</form>		
+		<br>
+		<form action="/set" method="GET">
+			<input type="hidden" id="wagon" name="wagon" value="DE">
+			<input type="hidden" id="cmd" name="cmd" value="0">
+			<input type="hidden" id="val" name="val" value="0">
+			<input type="submit" value="Stop animation">
+		</form>		
+	</fieldset>	
+</fieldset>
+
+<br>
+
+
+
+</div>
+</body>
+</html>
+)====="

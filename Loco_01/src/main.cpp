@@ -12,6 +12,7 @@
 #include <animationStartStop.h>
 #include <log.h>
 #include <ezButton.h>
+#include <httpServer.h>
 
 #define Mot1En1     18
 #define Mot1En2     19  
@@ -144,6 +145,7 @@ void setup() {
   assignAnimations();
 
   scanner.begin( SDA, SCL );    //only needed for scanning for I2C devices
+  http_Setup();
 
   Serial.println("Setup done");
 }
@@ -181,6 +183,15 @@ void loop() {
     
     screen = SCREENDELAY;
   }
+
+  if ( http_NewValueAvail() ) {
+    mqtt_MessageReceived( convertCountryCode( http_getWagon().c_str() ), 
+                          http_getCmd(), 
+                          http_getValue() );   
+    http_Clear();
+  } 
+
+
 }
 
 
