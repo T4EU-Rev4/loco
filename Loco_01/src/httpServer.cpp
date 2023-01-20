@@ -58,7 +58,7 @@ void http_Setup() {
   );
 
   // Send a GET request to <ESP_IP>/set?wagon=DK&cmd=2&val=1>
-  server.on("/get", HTTP_GET, [] (AsyncWebServerRequest *request) {
+  server.on("/set", HTTP_GET, [] (AsyncWebServerRequest *request) {
     // GET wagon value on <ESP_IP>/set?wagon=DK&cmd=2&val=1>
     if (request->hasParam(PARAM_WAGON)) {
       http_Wagon = request->getParam(PARAM_WAGON)->value();
