@@ -40,6 +40,9 @@ This is a first version of a firmware on the ESP32, to fullfill the follwoing re
 - start and stop animations on different wagons of the train by MQTT-commands
 
 It proviedes some animations for PCF8575 based wagons as well as an animation to drive the motor of the loco. A simple Webinterfaces allowes to start some animations without a MQTT-Broker.
+This version will be tagged as loco_Rev_0.1 because we need to remove some components due to memory reasons to implement the control for the camery.
+
+
 See Wiki for more information.
 
 
