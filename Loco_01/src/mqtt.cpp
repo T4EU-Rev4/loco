@@ -9,8 +9,14 @@
 // WiFi
 // const char *ssid          = "TPMC"; // Enter your WiFi name
 // const char *password      = "kaun_Technikos_PMC_device";  // Enter WiFi password
-const char *ssid          = "Mi Mi Mi"; // Enter your WiFi name
-const char *password      = ".Born1999.";  // Enter WiFi password
+// const char *ssid          = "Mi Mi Mi"; // Enter your WiFi name
+// const char *password      = ".Born1999.";  // Enter WiFi password
+// const char *ssid          = "IBB";                   // Enter your WiFi name
+// const char *password      = "";  // Enter WiFi password
+//const char *ssid          = "WLAN-BBS";                   // Enter your WiFi name
+//const char *password      = "v4575885614";  // Enter WiFi password
+const char *ssid          = "WLAN_4";                   // Enter your WiFi name
+const char *password      = "";  // Enter WiFi password
 
 // MQTT Broker
 // const char *mqtt_broker   = "broker.emqx.io";
