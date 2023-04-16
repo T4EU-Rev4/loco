@@ -21,24 +21,29 @@
 
 
 //-- no changes neccesary after this line ---------
+//-- the structure is defined for the whole train. We only use
+//-- the first 10 wagons at the showcase.
 
-#define NR_OF_WAGONS  25
+#define NR_OF_WAGONS    25
+#define SHOWCASE_LIMIT  10
 
 enum CountryCode {
-  L1,
-  IT, NO, IR, HR, LT, DE,
-  DK, PT, CH, X1, X2, NL,
-  TR, AT, PL, FR, SK, SI,
-  BE, SE, RO, X3, X4, LX
+  DE, DK, IS, SK, RO, 
+  FR, AT, HR, BE, CH,
+
+  L1, IT, NO, IR, LT, 
+  PT, TR, PL, NL, SE,
+  SI, LX, X1, X2, X3
 };
 
 
 const char countries[NR_OF_WAGONS][3] = { 
-    "L1",
-    "IT","NO","IR","HR","LT","DE",
-    "DK","PT","CH","X1","X2","NL",
-    "TR","AT","PL","FR","SK","SI",
-    "BE","SE","RO","X3","X4","LX"
+  "DE", "DK", "IS", "SK", "RO", 
+  "FR", "AT", "HR", "BE", "CH",
+
+  "L1", "IT", "NO", "IR", "LT", 
+  "PT", "TR", "PL", "NL", "SE",
+  "SI", "LX", "X1", "X2", "X3"
 };
 
 //prototype definitions

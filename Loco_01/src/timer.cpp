@@ -49,15 +49,15 @@ void timer_Trigger( void ) {
 
   if (count > cnt5MS) { cnt5MS = 0; } else { cnt5MS -= count; }   
   if (cnt5MS == 0) {
-	timerFlags.flags.b5MS = 1;	  
-	cnt5MS = 5;
+	  timerFlags.flags.b5MS = 1;	  
+	  cnt5MS = 5;
   }
   
   if (count > cnt10MS) { cnt10MS = 0; } else { cnt10MS -= count; }   
   if (cnt10MS == 0) { 
-	timerFlags.flags.b10MS = 1;
+	  timerFlags.flags.b10MS = 1;
   	cnt10MS = 10; 
-	if (CB_Event_10MS != NULL) { CB_Event_10MS(); } 
+	  if (CB_Event_10MS != NULL) { CB_Event_10MS(); } 
   }
 
   if (count > cnt100MS) { cnt100MS = 0; } else { cnt100MS -= count; }   

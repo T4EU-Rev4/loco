@@ -4,10 +4,11 @@
 #include "Arduino.h"
 #include "I2Cdevice.h"
 
-#define LED 23
+#define LED1    25
+#define LED2    26
 
-#define SDA 22
-#define SCL 21
+//define SDA     22
+//define SCL     21
 
 #define DEV_0   0x20
 #define DEV_1   0x21
@@ -23,9 +24,9 @@
 #define NR_OF_PORTS 2
 
 #define BUTTON1     0
-#define BUTTON2     4
-#define BUTTON3     16
-#define BUTTON4     17     
+#define BUTTON2     2
+// #define BUTTON3     16
+// #define BUTTON4     17     
 
 void mqtt_MessageReceived( uint16_t adr, uint8_t cmd, uint8_t val );
 

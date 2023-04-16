@@ -19,8 +19,10 @@
 #include "Arduino.h"
 #include "Wire.h"
 
-#define SDA 22
-#define SCL 21
+//define SDA 22
+//define SCL 21
+//#define SDA 21
+//#define SCL 22
 
 #define I2CDev_NrOfPorts  2
 

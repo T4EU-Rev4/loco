@@ -8,15 +8,17 @@
 
 // WiFi
 // const char *ssid          = "TPMC"; // Enter your WiFi name
-// const char *password      = "kaun_Technikos_PMC_device";  // Enter WiFi password
+// const char *password      = "";  // Enter WiFi password
 // const char *ssid          = "Mi Mi Mi"; // Enter your WiFi name
-// const char *password      = ".Born1999.";  // Enter WiFi password
+// const char *password      = "";  // Enter WiFi password
 // const char *ssid          = "IBB";                   // Enter your WiFi name
 // const char *password      = "";  // Enter WiFi password
-//const char *ssid          = "WLAN-BBS";                   // Enter your WiFi name
-//const char *password      = "v4575885614";  // Enter WiFi password
-const char *ssid          = "WLAN_4";                   // Enter your WiFi name
+const char *ssid          = "WLAN_07";                   // Enter your WiFi name
 const char *password      = "";  // Enter WiFi password
+//const char *ssid          = "WLAN-BBS";                   // Enter your WiFi name
+//const char *password      = "";  // Enter WiFi password
+//const char *ssid          = "WLAN_4";                   // Enter your WiFi name
+//const char *password      = "";  // Enter WiFi password
 
 // MQTT Broker
 // const char *mqtt_broker   = "broker.emqx.io";
@@ -87,12 +89,45 @@ uint8_t mqtt_getWiFiStatus(){
   return  (uint8_t)WiFi.status();
 }
 
+void scan_WiFi() {
+   Serial.println("scan start");
+
+  // WiFi.scanNetworks will return the number of networks found
+  int n = WiFi.scanNetworks();
+  Serial.println("scan done");
+  if (n == 0) {
+      Serial.println("no networks found");
+  } else {
+    Serial.print(n);
+    Serial.println(" networks found");
+    for (int i = 0; i < n; ++i) {
+      // Print SSID and RSSI for each network found
+      Serial.print(i + 1);
+      Serial.print(": ");
+      Serial.print(WiFi.SSID(i));
+      Serial.print(" (");
+      Serial.print(WiFi.RSSI(i));
+      Serial.print(")");
+      Serial.println((WiFi.encryptionType(i) == WIFI_AUTH_OPEN)?" ":"*");
+      delay(10);
+    }
+  }
+  Serial.println("");
+}
+
 void initWiFi() {
   uint8_t timeout = WiFiRestartTimeout;  //Timeout in seconds
   WiFi.mode(WIFI_STA);
+  WiFi.disconnect();
+  delay(100);
+
+  scan_WiFi();
+  WiFi.disconnect();
+  delay(100);
+
   WiFi.begin(ssid, password);
   json_setMAC( WiFi.macAddress() );    //override the preset with the actual value
-  Serial.print("Connecting to WIFI network");
+  Serial.print("Connecting to WIFI network:  ");
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print('.');        //If there is not successfull connection to WiFi network
     mqtt_showWiFiStatus();    //after typ. 20 sec, the ESP will be restarted
