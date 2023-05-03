@@ -25,7 +25,7 @@
 //#define SCL 22
 
 #define I2CDev_NrOfPorts  2
-
+#define I2CFrequency      20000UL
 
 class I2CDevice
 {

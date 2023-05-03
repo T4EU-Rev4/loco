@@ -14,7 +14,7 @@
 // const char *ssid          = "IBB";                   // Enter your WiFi name
 // const char *password      = "";  // Enter WiFi password
 const char *ssid          = "WLAN_07";                   // Enter your WiFi name
-const char *password      = "";  // Enter WiFi password
+const char *password      = "12^3=1728";  // Enter WiFi password
 //const char *ssid          = "WLAN-BBS";                   // Enter your WiFi name
 //const char *password      = "";  // Enter WiFi password
 //const char *ssid          = "WLAN_4";                   // Enter your WiFi name

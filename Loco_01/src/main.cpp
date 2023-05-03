@@ -17,13 +17,14 @@
 #define SM_DIR      17
 #define SM_PUL      16
 #define SM_EN       14
-#define SM_SYNC     4
+#define SM_SYNC     4     //Stepper motor sync switch
 
 #define Mot1En1     18
 #define Mot1En2     19  
 #define Mot1PWM     5
 #define SCANDELAY   10
 #define SCREENDELAY 5
+uint8_t manCamPos = 0;
 bool    bLed = false;
 uint8_t scan = SCANDELAY;
 uint8_t screen = SCREENDELAY;
@@ -225,7 +226,9 @@ void loop() {
 //      digitalWrite( SM_PUL, LOW);
 //      delay(1);  
 //    }
-    camera.moveTo( 1 );
+    manCamPos++;
+    if (manCamPos > 9) { manCamPos = 0; }
+    camera.moveTo( manCamPos );
   }
 
   if (button2.isPressed()) {

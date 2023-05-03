@@ -17,7 +17,7 @@
 #define DEV_4   0x24
 #define DEV_5   0x25
 #define DEV_6   0x26
-#define DEV_7   0x27
+#define DEV_7   0x27 
 
 #define DEV     DEV_0
 

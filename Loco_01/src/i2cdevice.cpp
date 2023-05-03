@@ -21,7 +21,11 @@ void I2CDevice::begin( uint8_t sda, uint8_t scl ) {
     _sda  = sda;
     _scl  = scl;
     if (I2CDev_Counter == 0) {
-        _wire->begin( _sda, _scl, 100000 ); 
+        _wire->begin( _sda, _scl, I2CFrequency ); 
+        Serial.print("I2C running at ");
+        Serial.print( I2CFrequency );
+        Serial.println( " Hz");
+
     }
     I2CDev_Counter++; 
 }
@@ -31,6 +35,10 @@ void I2CDevice::begin( uint8_t sda, uint8_t scl ) {
 void I2CDevice::begin(){ 
     if (I2CDev_Counter == 0) {
         _wire->begin(); 
+        _wire->setClock( I2CFrequency );
+        Serial.print("I2C running at ");
+        Serial.print( I2CFrequency );
+        Serial.println( " Hz");
         //Serial.println("I2CDevice::begin()");
     }
     I2CDev_Counter++;    
@@ -103,7 +111,7 @@ void I2CDevice::scan() {
   Serial.println ("I2C Scanning ...");
   byte count = 0;
 
-  Wire.begin( SDA, SCL, 100000 );
+  Wire.begin( SDA, SCL, I2CFrequency );
   for (byte i = 8; i < 120; i++) {
     Wire.beginTransmission (i);          // Begin I2C transmission Address (i)
     if (Wire.endTransmission () == 0) {  // Receive 0 = success (ACK response) 
