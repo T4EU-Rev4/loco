@@ -14,16 +14,32 @@
 #include <ezButton.h>
 #include <stepper.h>
 
-#define SM_DIR      17
-#define SM_PUL      16
-#define SM_EN       14
-#define SM_SYNC     4     //Stepper motor sync switch
+#define TRAIN_GERMANY   
+//#define TRAIN_ITALY
+
+#ifdef TRAIN_GERMANY
+  #define SM_DIR      17
+  #define SM_PUL      16
+  #define SM_EN       14
+  #define SM_SYNC     4     //Stepper motor sync switch
+#endif
+
+#ifdef TRAIN_ITALY
+  #define SM_DIR      26
+  #define SM_PUL      32
+  #define SM_EN       14
+  #define SM_SYNC     34     //Stepper motor sync switch
+#endif
+
+
 
 #define Mot1En1     18
 #define Mot1En2     19  
 #define Mot1PWM     5
 #define SCANDELAY   10
 #define SCREENDELAY 5
+
+uint8_t serCMD = 0;
 uint8_t manCamPos = 0;
 bool    bLed = false;
 uint8_t scan = SCANDELAY;
@@ -244,8 +260,29 @@ void loop() {
 
 //    camera.moveTo( 9 );
     scan = 0;
-
   }
+
+if (Serial.available() ) {
+  serCMD = Serial.read();
+  switch ( serCMD ) {
+    case '+' :  camera.turnRight( 10 );
+                Serial.println("Cmd: +" );
+                break;
+    case '-' :  camera.turnLeft( 10 );
+                Serial.println("Cmd: -" );
+                break;
+    case 'A' :  camera.turnRight( 50 );
+                Serial.println("Cmd: A" );
+                break;
+    case 'D' :  camera.turnLeft( 50 );
+                Serial.println("Cmd: D" );
+                break;
+    case 'H' :  camera.home();
+                Serial.println("Cmd: H" );
+                break;
+  }
+}
+
 
   // if (button3.isPressed()) {
   //   Serial.println("button 3");
