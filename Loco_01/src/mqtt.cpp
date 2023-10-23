@@ -31,10 +31,16 @@ const char *password      = "12^3=1728";  // Enter WiFi password
 // const char *mqtt_password = "";
 // const int   mqtt_port     = 1883;
 
-const char *mqtt_broker   = "168.119.166.30";
+//const char *mqtt_broker   = "168.119.166.30";
+//const char *mqtt_username = "TrainForEurope";
+//const char *mqtt_password = "t4eu_2023";
+//const int   mqtt_port     = 1883;
+
+const char *mqtt_broker   = "23.88.102.162";
 const char *mqtt_username = "TrainForEurope";
 const char *mqtt_password = "t4eu_2023";
 const int   mqtt_port     = 1883;
+
 
 // const char *mqtt_broker   = "192.168.1.21";    //my local Mosquitto
 // const char *mqtt_username = "train4euIT";
